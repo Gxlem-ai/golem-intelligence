@@ -1,7 +1,5 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { edges } from "@/lib/content";
+import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/motion/reveal";
@@ -19,9 +17,11 @@ export function Edges() {
         <div className="border-line mt-14 overflow-hidden rounded-2xl border">
           {edges.items.map((item, i) => (
             <Reveal key={item.rank} delay={i * 0.05} amount={0.3}>
-              <motion.div
-                whileHover={{ backgroundColor: "rgba(30,122,86,0.04)" }}
-                className="bg-paper border-line grid gap-6 border-b p-8 last:border-b-0 sm:grid-cols-[140px_1fr_240px] sm:p-9"
+              <div
+                className={cn(
+                  "bg-paper border-line grid gap-6 p-8 transition-colors duration-300 hover:bg-[rgba(30,122,86,0.04)] sm:grid-cols-[140px_1fr_240px] sm:p-9",
+                  i < edges.items.length - 1 && "border-b",
+                )}
               >
                 <div className="flex items-baseline gap-3 sm:block">
                   <span className="text-leaf font-mono text-[13px]">edge</span>
@@ -42,7 +42,7 @@ export function Edges() {
                 <div className="border-line bg-card text-fog flex items-center rounded-xl border p-4 font-mono text-xs leading-relaxed">
                   {item.aside}
                 </div>
-              </motion.div>
+              </div>
             </Reveal>
           ))}
         </div>

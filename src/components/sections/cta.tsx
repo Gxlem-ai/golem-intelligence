@@ -39,7 +39,7 @@ export function CTA() {
         </Reveal>
         <Reveal delay={0.24}>
           <div className="mt-9 flex justify-center">
-            <Magnetic strength={22}>
+            <Magnetic strength={10}>
               <a
                 href={cta.button.href}
                 className="bg-leaf group inline-flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-semibold text-white shadow-[0_14px_40px_-12px_rgba(30,122,86,0.6)] transition-colors hover:bg-[#176546]"

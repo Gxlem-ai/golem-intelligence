@@ -1,39 +1,49 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from "framer-motion";
 import { useRef, type ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 interface MagneticProps {
   children: ReactNode;
   className?: string;
-  /** How strongly the element follows the cursor (px range). */
+  /** Max px the element drifts toward the cursor. Kept small to avoid jitter. */
   strength?: number;
 }
 
 /**
- * Wraps content so it gently follows the cursor on hover, then springs back.
- * Great for premium CTA buttons. Pointer-fine devices only behavior is
- * naturally graceful on touch (no hover events fire).
+ * Wraps content so it gently drifts toward the cursor on hover, then springs
+ * back. The pull is intentionally subtle and well-damped so the element never
+ * slides out from under the cursor (which causes the "jumpy" oscillation).
+ * Disabled when the user prefers reduced motion or on touch (no hover events).
  */
-export function Magnetic({
-  children,
-  className,
-  strength = 18,
-}: MagneticProps) {
+export function Magnetic({ children, className, strength = 8 }: MagneticProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 200, damping: 15, mass: 0.3 });
-  const springY = useSpring(y, { stiffness: 200, damping: 15, mass: 0.3 });
+  // Soft, well-damped spring => smooth settle, no overshoot/jitter.
+  const spring = { stiffness: 120, damping: 20, mass: 0.5 } as const;
+  const springX = useSpring(x, spring);
+  const springY = useSpring(y, spring);
 
   function handleMove(e: React.MouseEvent<HTMLDivElement>) {
+    if (reduceMotion) return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const relX = e.clientX - (rect.left + rect.width / 2);
-    const relY = e.clientY - (rect.top + rect.height / 2);
-    x.set((relX / (rect.width / 2)) * strength);
-    y.set((relY / (rect.height / 2)) * strength);
+    // Normalized offset from center, clamped to [-1, 1] for an even pull.
+    const nx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+    const ny = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+    const clamp = (v: number) => Math.max(-1, Math.min(1, v));
+    x.set(clamp(nx) * strength);
+    y.set(clamp(ny) * strength);
   }
 
   function reset() {
@@ -44,10 +54,10 @@ export function Magnetic({
   return (
     <motion.div
       ref={ref}
-      className={className}
+      className={cn("inline-block", className)}
       onMouseMove={handleMove}
       onMouseLeave={reset}
-      style={{ x: springX, y: springY }}
+      style={{ x: springX, y: springY, willChange: "transform" }}
     >
       {children}
     </motion.div>
