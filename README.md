@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Golem Intelligence
 
-## Getting Started
+The marketing site for **Golem** — the independent, evidence-grounded AI operations layer for cannabis retail. Independent · grounded · approval-first.
 
-First, run the development server:
+A premium, motion-rich reimagining built with a modern, type-safe stack.
+
+## Tech stack
+
+- **Next.js 15** (App Router) + **React 19**
+- **TypeScript** (strict)
+- **Tailwind CSS v4** with a custom Golem design system
+- **shadcn/ui** primitives
+- **Framer Motion** for scroll, stagger, parallax and micro-interactions
+- **ESLint** + **Prettier** (with Tailwind class sorting)
+
+## Getting started
 
 ```bash
+# install dependencies
+npm install
+
+# run the dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` — start the dev server
+- `npm run build` — production build
+- `npm run start` — run the production build
+- `npm run lint` — lint with ESLint
+- `npm run typecheck` — type-check with the TypeScript compiler
+- `npm run format` — format the codebase with Prettier
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+  app/            # App Router entrypoints, layout, global styles
+  components/
+    sections/     # Page sections (hero, map, edges, etc.)
+    ui/           # shadcn/ui primitives
+    motion/       # Reusable Framer Motion building blocks
+  lib/            # Utilities (cn, constants, content)
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Design system
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Brand tokens live in `src/app/globals.css` and are exposed as Tailwind
+utilities (e.g. `bg-spruce`, `text-leaf`, `text-copper`). The palette centers on
+a deep spruce ground, a leaf-green accent and a copper call-to-action, with a
+soft "paper" reading surface.
