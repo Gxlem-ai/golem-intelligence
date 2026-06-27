@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
+import { EASE_SILK } from "@/lib/motion";
 
 type Direction = "up" | "down" | "left" | "right" | "none";
 
@@ -53,7 +54,7 @@ export function Reveal({
       transition={{
         duration,
         delay,
-        ease: [0.22, 1, 0.36, 1],
+        ease: EASE_SILK,
       }}
     >
       {children}
@@ -73,7 +74,7 @@ const itemVariants: Variants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.6, ease: EASE_SILK },
   },
 };
 
