@@ -24,9 +24,9 @@ export function PositioningMap() {
           body={map.body}
         />
 
-        <div className="mt-14 grid items-start gap-14 lg:grid-cols-[0.85fr_1.15fr]">
-          {/* chart — pinned on the right while the notes scroll (desktop) */}
-          <div className="lg:sticky lg:top-24 lg:order-2 lg:self-start">
+        <div className="mt-14 grid items-start gap-14 lg:grid-cols-[1.15fr_0.85fr]">
+          {/* chart — pinned on the left while the notes scroll (desktop) */}
+          <div className="lg:sticky lg:top-24 lg:order-1 lg:self-start">
             <Reveal direction="right" amount={0.2}>
               <div className="relative">
                 <div className="border-line bg-card relative aspect-[10/8] rounded-2xl border shadow-[0_20px_60px_-30px_rgba(20,32,27,0.3)]">
@@ -124,8 +124,8 @@ export function PositioningMap() {
             </Reveal>
           </div>
 
-          {/* notes — scroll-driven on the left (desktop) */}
-          <div className="lg:order-1">
+          {/* notes — scroll-driven on the right (desktop) */}
+          <div className="lg:order-2">
             <Reveal>
               <h3 className="text-ink text-xl font-semibold">
                 {map.notes.title}
