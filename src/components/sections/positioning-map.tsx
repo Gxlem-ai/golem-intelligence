@@ -135,7 +135,7 @@ export function PositioningMap() {
               {map.notes.items.map((item) => (
                 <div
                   key={item.lead}
-                  className="lg:flex lg:min-h-[52vh] lg:items-start"
+                  className="lg:flex lg:min-h-[36vh] lg:items-start"
                 >
                   <ScrollNote lead={item.lead} rest={item.rest} />
                 </div>
