@@ -135,7 +135,7 @@ export function PositioningMap() {
               {map.notes.items.map((item) => (
                 <div
                   key={item.lead}
-                  className="lg:flex lg:min-h-[36vh] lg:items-start"
+                  className="lg:flex lg:min-h-[52vh] lg:items-start"
                 >
                   <ScrollNote lead={item.lead} rest={item.rest} />
                 </div>
@@ -163,7 +163,7 @@ function ScrollNote({ lead, rest }: ScrollNoteProps) {
   const prefersReduced = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 0.95", "start 0.3"],
+    offset: ["start 1", "start 0.2"],
   });
   const opacity = useTransform(scrollYProgress, [0, 1], [0.15, 1]);
   const y = useTransform(scrollYProgress, [0, 1], [40, 0]);
