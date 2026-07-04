@@ -242,4 +242,10 @@ export const cta = {
 export const footer = {
   left: "Golem AI · Massachusetts",
   right: "independent · grounded · approval-first",
+  // Placeholder links — swap each `href: "#"` for a real URL when ready.
+  links: [
+    { label: "Team", href: "#" },
+    { label: "References", href: "#" },
+    { label: "Documentation", href: "#" },
+  ],
 } as const;

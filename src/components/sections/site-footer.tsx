@@ -13,6 +13,17 @@ export function SiteFooter() {
             </span>
             <span>{footer.left}</span>
           </div>
+          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            {footer.links.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="transition-colors hover:text-white"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
           <div className="font-mono text-xs">{footer.right}</div>
         </div>
       </Container>
