@@ -31,27 +31,54 @@ export const hero = {
   ],
 } as const;
 
-export type ExchangeChip = {
-  label: string;
-  tone: "leaf" | "market" | "copper";
-};
-
-export const exchange = {
-  title: "ASKGOLEM",
-  userMessage:
-    "What will I run out of before the 20th — and how am I priced against the shops near me?",
-  golemMessage:
-    "Three SKUs stock out by the 20th at current velocity. On the two you can reorder today, you're $7 above the nearest shop on Main St for the identical product.",
-  highlight: "$7 above",
-  chips: [
-    { label: "your register · 10:42 AM", tone: "leaf" },
-    { label: "4 local menus · today", tone: "market" },
-  ] satisfies ExchangeChip[],
-  approve: {
-    text: "Draft reorder for 3 SKUs — ready for your review",
-    pill: "Approve",
+/**
+ * Copy + structure for the hero's agent terminal. Text is Golem's; the layout,
+ * design, and full interaction (chat pinned to the bottom, the agent answering
+ * above it, then asking a clarifying question) mirror Cursor's `cursor-agent`.
+ */
+export const agentTerminal = {
+  title: "golem-agent",
+  promptSymbol: ">",
+  command: "agent",
+  name: "Golem Agent",
+  cwd: "~/golem/retail · main",
+  /** Placeholder shown in the input before anything is submitted. */
+  placeholder: "Plan, search, build anything",
+  /** The prompt that types itself out, then gets submitted. */
+  input: "plan this week's reorder",
+  /** First pass: the agent thinks, reads, and plans. */
+  steps: [
+    { label: "Thought", meta: "3s" },
+    { label: "Read register, 4 local menus", meta: "1s" },
+    { label: "Planned", meta: "2s" },
+    { label: "Checking 3 SKUs, 1 recall feed", meta: "1s" },
+  ],
+  /** The clarifying question the agent asks back, with a selected option. */
+  question: {
+    title: "Question",
+    prompt: "Which SKUs should I prioritize?",
+    options: ["Lowest stock first", "Highest margin first"],
+    checked: 0,
   },
-  done: "✓ PO drafted · Slack alert sent",
+  /** Second pass: after the answer, it spins up sub-agents. */
+  followUpSteps: [
+    { label: "Analyzed scope", meta: "2s" },
+    { label: "Started 3 agents", meta: "" },
+  ],
+  agents: [
+    { name: "Reorder", note: "Drafting purchase order" },
+    { name: "Pricing", note: "Comparing 4 local menus" },
+    { name: "Compliance", note: "Scanning recall feed" },
+  ],
+  followup: "Add a follow-up",
+  stopHint: "esc to stop",
+  mode: "Plan",
+  modeHint: "(shift+tab to cycle)",
+  model: "Golem 1.0 · Grounded",
+  /** Context-usage suffix appended once work starts / finishes. */
+  progressStart: "5%",
+  progressDone: "8% · 2 drafts ready",
+  hints: "/ commands · @ files · ! shell",
 } as const;
 
 export const principles = [
@@ -87,36 +114,36 @@ export const map = {
     {
       name: "Vendor AIs",
       note: "Vendor stores only",
-      top: 14,
-      left: 6,
+      top: 19,
+      left: 26,
       golem: false,
     },
     {
       name: "IndicaOnline AI",
       note: "IndicaOnline POS only",
-      top: 33,
-      left: 18,
+      top: 34,
+      left: 22,
       golem: false,
     },
     {
       name: "Budtender bots",
       note: "Consumer, not operator",
-      top: 80,
-      left: 6,
+      top: 75,
+      left: 25,
       golem: false,
     },
     {
       name: "CannMenus, Headset",
       note: "Market data, bring your own AI",
-      top: 74,
-      left: 56,
+      top: 75,
+      left: 75,
       golem: false,
     },
     {
       name: "Golem",
       note: "Acts, with receipts",
-      top: 17,
-      left: 64,
+      top: 25,
+      left: 75,
       golem: true,
     },
   ],

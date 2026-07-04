@@ -6,7 +6,7 @@ import { hero } from "@/lib/content";
 import { Container } from "@/components/ui/container";
 import { Chip } from "@/components/ui/chip";
 import { Magnetic } from "@/components/motion/magnetic";
-import { AskGolemExchange } from "@/components/sections/ask-golem-exchange";
+import { AgentTerminal } from "@/components/sections/agent-terminal";
 import { fadeUp } from "@/lib/motion";
 
 /** Live equalizer-style waveform — a refined nod to the original glyph accent. */
@@ -41,21 +41,6 @@ export function Hero() {
       id="top"
       className="bg-spruce relative overflow-hidden pt-20 pb-24 sm:pt-24"
     >
-      {/* aurora blobs */}
-      <motion.div
-        aria-hidden
-        className="bg-leaf/25 pointer-events-none absolute -top-32 -left-24 size-[28rem] rounded-full blur-[120px]"
-        animate={{ x: [0, 40, 0], y: [0, 30, 0] }}
-        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        aria-hidden
-        className="bg-copper/15 pointer-events-none absolute -right-24 bottom-0 size-[26rem] rounded-full blur-[120px]"
-        animate={{ x: [0, -30, 0], y: [0, -20, 0] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <div className="bg-grid pointer-events-none absolute inset-0 opacity-70" />
-
       <Container className="relative">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           {/* left column */}
@@ -136,9 +121,9 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* right column — static exchange */}
+          {/* right column — cursor-agent style terminal */}
           <div>
-            <AskGolemExchange />
+            <AgentTerminal />
           </div>
         </div>
       </Container>

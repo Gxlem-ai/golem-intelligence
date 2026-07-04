@@ -67,15 +67,15 @@ export function PositioningMap() {
                   {map.players.map((player, i) => (
                     <motion.div
                       key={player.name}
-                      initial={{ opacity: 0, scale: 0.6 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
+                      initial={{ opacity: 0, scale: 0.6, x: "-50%", y: "-50%" }}
+                      whileInView={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
                       viewport={{ once: true }}
                       transition={{
                         duration: 0.5,
                         delay: 0.3 + i * 0.12,
                         ease: EASE_SILK,
                       }}
-                      whileHover={{ scale: 1.06, zIndex: 20 }}
+                      whileHover={{ scale: 1.06, x: "-50%", y: "-50%", zIndex: 20 }}
                       style={{ top: `${player.top}%`, left: `${player.left}%` }}
                       className={cn(
                         "absolute rounded-xl px-3.5 py-2.5 text-[13.5px] leading-tight shadow-sm",
